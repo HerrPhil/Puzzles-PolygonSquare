@@ -33,9 +33,10 @@ public class Polygon {
         Permutate permutate = new Permutate(points.length);
         int [][] pointIndices = permutate.solution();
         for (int i = 0; i < pointIndices.length; i++) {
+
             System.out.printf("candidate square point indices are %s%n", Arrays.toString(pointIndices[i]));
 
-            int [] pointIndexSet = pointIndices[i];
+            int [] pointIndexSet = pointIndices[i]; // array of 4 point indices
 
             // collect actual points
             System.out.printf("collect point objects by indices%n");
@@ -45,12 +46,21 @@ public class Polygon {
                 int [] point = points[pointIndex];
                 System.out.printf("Point pair (%d, %d)%n", point[0], point[1]);
                 Point pointObject = new Point(point[0], point[1]);
-                System.out.printf("%s%n", pointObject.toString());
-                pointObjects.add(pointObject);                
+                System.out.printf("Instance of %s%n", pointObject.toString());
+                pointObjects.add(pointObject);
             }
+
+            System.out.printf("point objects before%n");
+            pointObjects.forEach((p) -> System.out.printf("%s%n", p.toString()));
+
+            // sort points to be in clockwise order around the polygon
+            PolygonSort polygonSort = new PolygonSort(pointObjects);
+            List<Point> sortedPointObjects = polygonSort.sortPoints();
+
+            System.out.printf("point objects after%n");
+            sortedPointObjects.forEach((p) -> System.out.printf("%s%n", p.toString()));
         }
 
-        // sort points to be in clockwise order around the polygon
 
         // use difference of squares to check all sides are equal in length
 
