@@ -59,10 +59,29 @@ public class Polygon {
 
             System.out.printf("point objects after%n");
             sortedPointObjects.forEach((p) -> System.out.printf("%s%n", p.toString()));
+
+            // use distance between two points to check all sides are equal in length
+            PolygonDistance pd1 = new PolygonDistance(sortedPointObjects.get(0), sortedPointObjects.get(1));
+            PolygonDistance pd2 = new PolygonDistance(sortedPointObjects.get(1), sortedPointObjects.get(2));
+            PolygonDistance pd3 = new PolygonDistance(sortedPointObjects.get(2), sortedPointObjects.get(3));
+            PolygonDistance pd4 = new PolygonDistance(sortedPointObjects.get(3), sortedPointObjects.get(0));
+
+            double d1 = pd1.getDistanceBetweenSquares();
+            double d2 = pd2.getDistanceBetweenSquares();
+            double d3 = pd3.getDistanceBetweenSquares();
+            double d4 = pd4.getDistanceBetweenSquares();
+
+            System.out.printf("d1 = %.3f, d2 = %.3f, d3 = %.3f, d4 = %.3f%n", d1, d2, d3, d4);
+
+            if (d1 == d2 && d2 == d3 && d3 == d4 && d4 == d1) {
+                System.out.printf("All the distances are equal - might be a square%n");
+            } else {
+                System.out.printf("All the distances are not equal - cannot be a square%n");
+            }
+
         }
 
 
-        // use difference of squares to check all sides are equal in length
 
         // use dot notation to check all angles are 90 degrees
 
