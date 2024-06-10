@@ -39,16 +39,7 @@ public class Polygon {
             int [] pointIndexSet = pointIndices[i]; // array of 4 point indices
 
             // collect actual points
-            System.out.printf("collect point objects by indices%n");
-            List<Point> pointObjects = new ArrayList<>();
-            for (int j = 0; j < pointIndexSet.length; j++) {
-                int pointIndex = pointIndexSet[j];
-                int [] point = points[pointIndex];
-                System.out.printf("Point pair (%d, %d)%n", point[0], point[1]);
-                Point pointObject = new Point(point[0], point[1]);
-                System.out.printf("Instance of %s%n", pointObject.toString());
-                pointObjects.add(pointObject);
-            }
+            List<Point> pointObjects = getPoints(pointIndexSet);
 
             System.out.printf("point objects before%n");
             pointObjects.forEach((p) -> System.out.printf("%s%n", p.toString()));
@@ -72,20 +63,41 @@ public class Polygon {
             double d4 = pd4.getDistanceBetweenSquares();
 
             System.out.printf("d1 = %.3f, d2 = %.3f, d3 = %.3f, d4 = %.3f%n", d1, d2, d3, d4);
-
-            if (d1 == d2 && d2 == d3 && d3 == d4 && d4 == d1) {
+            boolean hasEqualDistances = d1 == d2 && d2 == d3 && d3 == d4 && d4 == d1;
+            if (hasEqualDistances) {
                 System.out.printf("All the distances are equal - might be a square%n");
             } else {
                 System.out.printf("All the distances are not equal - cannot be a square%n");
             }
 
+            // use dot product to check all angles are 90 degrees
+            Point p1 = sortedPointObjects.get(0);
+            Point p2 = sortedPointObjects.get(1);
+            Point p3 = sortedPointObjects.get(2);
+            PolygonDotProduct dotProduct1 = new PolygonDotProduct(p1, p2, p3, d1, d2);
+
+            double cosineTheta1 = dotProduct1.getCosineTheta();
+
         }
 
 
 
-        // use dot notation to check all angles are 90 degrees
 
         return count;
+    }
+
+    public List<Point> getPoints(int [] pointIndexSet) {
+            System.out.printf("collect point objects by indices%n");
+            List<Point> result = new ArrayList<>();
+            for (int j = 0; j < pointIndexSet.length; j++) {
+                int pointIndex = pointIndexSet[j];
+                int [] point = points[pointIndex];
+                System.out.printf("Point pair (%d, %d)%n", point[0], point[1]);
+                Point pointObject = new Point(point[0], point[1]);
+                System.out.printf("Instance of %s%n", pointObject.toString());
+                pointObjects.add(pointObject);
+            }
+            return result;
     }
 
 }
