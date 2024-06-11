@@ -10,8 +10,8 @@ public class PolygonDistance {
             return;
         }
 
-        Point p1 = new Point(1, 1);
-        Point p2 = new Point(4, 6);
+        Point p1 = new Point(3, 3);
+        Point p2 = new Point(5, 2);
         PolygonDistance polygonDistance = new PolygonDistance(p1, p2);
         double result = polygonDistance.getDistanceBetweenSquares();
         System.out.printf("distance = %.3f%n", result);
