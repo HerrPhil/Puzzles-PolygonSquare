@@ -39,7 +39,7 @@ public class Polygon {
             int [] pointIndexSet = pointIndices[i]; // array of 4 point indices
 
             // collect actual points
-            List<Point> pointObjects = getPoints(pointIndexSet);
+            List<Point> pointObjects = getPoints(points, pointIndexSet);
 
             System.out.printf("point objects before%n");
             pointObjects.forEach((p) -> System.out.printf("%s%n", p.toString()));
@@ -76,17 +76,39 @@ public class Polygon {
             Point p3 = sortedPointObjects.get(2);
             PolygonDotProduct dotProduct1 = new PolygonDotProduct(p1, p2, p3, d1, d2);
 
+            p1 = sortedPointObjects.get(1);
+            p2 = sortedPointObjects.get(2);
+            p3 = sortedPointObjects.get(3);
+            PolygonDotProduct dotProduct2 = new PolygonDotProduct(p1, p2, p3, d2, d3);
+
+            p1 = sortedPointObjects.get(2);
+            p2 = sortedPointObjects.get(3);
+            p3 = sortedPointObjects.get(0);
+            PolygonDotProduct dotProduct3 = new PolygonDotProduct(p1, p2, p3, d3, d4);
+
+            p1 = sortedPointObjects.get(3);
+            p2 = sortedPointObjects.get(0);
+            p3 = sortedPointObjects.get(1);
+            PolygonDotProduct dotProduct4 = new PolygonDotProduct(p1, p2, p3, d4, d1);
+
             double cosineTheta1 = dotProduct1.getCosineTheta();
 
+            boolean hasFourOrthogonalAngles = Math.abs(dotProduct1.getCosineTheta()) == 0.0d
+                && Math.abs(dotProduct2.getCosineTheta()) == 0.0d
+                && Math.abs(dotProduct3.getCosineTheta()) == 0.0d
+                && Math.abs(dotProduct4.getCosineTheta()) == 0.0d;
+
+            if (hasFourOrthogonalAngles) {
+                System.out.printf("All the angles are orthogonal - might be a square%n");
+            } else {
+                System.out.printf("Not all the angles are orthogonal - cannot be a square%n");
+            }
         }
-
-
-
 
         return count;
     }
 
-    public List<Point> getPoints(int [] pointIndexSet) {
+    public List<Point> getPoints(int [][] points, int [] pointIndexSet) {
             System.out.printf("collect point objects by indices%n");
             List<Point> result = new ArrayList<>();
             for (int j = 0; j < pointIndexSet.length; j++) {
@@ -95,7 +117,7 @@ public class Polygon {
                 System.out.printf("Point pair (%d, %d)%n", point[0], point[1]);
                 Point pointObject = new Point(point[0], point[1]);
                 System.out.printf("Instance of %s%n", pointObject.toString());
-                pointObjects.add(pointObject);
+                result.add(pointObject);
             }
             return result;
     }
