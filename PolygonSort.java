@@ -103,16 +103,13 @@ public class PolygonSort {
     }
 
     public List<Point> sortPoints() {
+
         List<Point> result = new ArrayList<>(source);
-        System.out.printf("Method sortPoints()%n");
-        System.out.printf("find the centroid point of this set of points%n");
+
         double centroidXCoordinate = findCentroidXCoordinate();
         double centroidYCoordinate = findCentroidYCoordinate();
-        System.out.printf("Centroid point x = %.3f and y = %.3f%n", centroidXCoordinate, centroidYCoordinate);
-        System.out.printf("sort the points in a clockwise order around the perimeter of the polygon%n");
+
         Collections.sort(result, (a, b) -> {
-            System.out.printf("%n");
-            System.out.printf("Compare the a %s and the b %s%n", a.toString(), b.toString());
 
             // The javadocs state that the parameter names of atan2 are, first parameter, y and, second parameter, x.
             // "Returns the angle theta from the conversion of rectangular coordinates (x,y) to polar coordinates (r, theta)."
@@ -131,34 +128,31 @@ public class PolygonSort {
             // and the y-axis value is the adjacent value next to theta.
 
             double xOfAPolarCoordinate = 1.0d * a.getx() - centroidXCoordinate;
+
             double yOfAPolarCoordinate = 1.0d * a.gety() - centroidYCoordinate;
-            System.out.printf("Polar coordinates of a (%.3f, %.3f)%n", xOfAPolarCoordinate, yOfAPolarCoordinate);
+
             double arctanOfA = Math.atan2(yOfAPolarCoordinate, xOfAPolarCoordinate);
-            System.out.printf("arctan of a in radians %.3f%n", arctanOfA);
+
             double degreeOfA = Math.toDegrees(arctanOfA);
-            System.out.printf("arctan of a in degrees %.3f%n", degreeOfA);
+
             double degreeOfAOffset360 = degreeOfA + 360.0d;
-            System.out.printf("arctan of a offset by 360 in degrees %.3f%n", degreeOfAOffset360);
+
             double degreeOfAModulo360 = degreeOfAOffset360 % 360.0d;
-            System.out.printf("arctan of a modulo by 360 in degrees %.3f%n", degreeOfAModulo360);
 
             double xOfBPolarCoordinate = 1.0d * b.getx() - centroidXCoordinate;
+
             double yOfBPolarCoordinate = 1.0d * b.gety() - centroidYCoordinate;
-            System.out.printf("Polar coordinates of b (%.3f, %.3f)%n", xOfBPolarCoordinate, yOfBPolarCoordinate);
+
             double arctanOfB = Math.atan2(yOfBPolarCoordinate, xOfBPolarCoordinate);
-            System.out.printf("arctan of b in radians %.3f%n", arctanOfB);
+
             double degreeOfB = Math.toDegrees(arctanOfB);
-            System.out.printf("arctan of b in degrees %.3f%n", degreeOfB);
+
             double degreeOfBOffset360 = degreeOfB + 360.0d;
-            System.out.printf("arctan of b offset by 360 in degrees %.3f%n", degreeOfBOffset360);
+
             double degreeOfBModulo360 = degreeOfBOffset360 % 360.0d;
-            System.out.printf("arctan of b modulo by 360 in degrees %.3f%n", degreeOfBModulo360);
 
 //            int comparatorFactor = (int) (degreeOfAModulo360 - degreeOfBModulo360); // counter-clockwise sort
             int comparatorFactor = (int) (degreeOfBModulo360 - degreeOfAModulo360); // clockwise sort
-
-//            System.out.printf("comparator factor of counter-clockwise sort a - b is %d%n", comparatorFactor);
-            System.out.printf("comparator factor of clockwise sort b - a is %d%n", comparatorFactor);
 
             return comparatorFactor;
 
@@ -167,6 +161,7 @@ public class PolygonSort {
     }
 
     private double findCentroidXCoordinate() {
+
         double x = 0.0d;
 
         for(Point p : source) { 
@@ -181,6 +176,7 @@ public class PolygonSort {
     }
 
     private double findCentroidYCoordinate() {
+
         double y = 0.0d;
 
         for(Point p : source) {
