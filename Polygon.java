@@ -58,24 +58,17 @@ public class Polygon {
         // get permutations of given point indices
         Permutate permutate = new Permutate(points.length);
         int [][] pointIndices = permutate.solution();
-        for (int i = 0; i < pointIndices.length; i++) {
 
-            System.out.printf("candidate square point indices are %s%n", Arrays.toString(pointIndices[i]));
+        for (int i = 0; i < pointIndices.length; i++) {
 
             int [] pointIndexSet = pointIndices[i]; // array of 4 point indices
 
             // collect actual points
             List<Point> pointObjects = getPoints(points, pointIndexSet);
 
-            System.out.printf("point objects before%n");
-            pointObjects.forEach((p) -> System.out.printf("%s%n", p.toString()));
-
             // sort points to be in clockwise order around the polygon
             PolygonSort polygonSort = new PolygonSort(pointObjects);
             List<Point> sortedPointObjects = polygonSort.sortPoints();
-
-            System.out.printf("point objects after%n");
-            sortedPointObjects.forEach((p) -> System.out.printf("%s%n", p.toString()));
 
             // use distance between two points to check all sides are equal in length
             PolygonDistance pd1 = new PolygonDistance(sortedPointObjects.get(0), sortedPointObjects.get(1));
@@ -88,13 +81,7 @@ public class Polygon {
             double d3 = pd3.getDistanceBetweenSquares();
             double d4 = pd4.getDistanceBetweenSquares();
 
-            System.out.printf("d1 = %.3f, d2 = %.3f, d3 = %.3f, d4 = %.3f%n", d1, d2, d3, d4);
             boolean hasEqualDistances = d1 == d2 && d2 == d3 && d3 == d4 && d4 == d1;
-            if (hasEqualDistances) {
-                System.out.printf("All the distances are equal - might be a square%n");
-            } else {
-                System.out.printf("All the distances are not equal - cannot be a square%n");
-            }
 
             // use dot product to check all angles are 90 degrees
             Point p1 = sortedPointObjects.get(0);
@@ -124,12 +111,6 @@ public class Polygon {
                 && Math.abs(dotProduct3.getCosineTheta()) == 0.0d
                 && Math.abs(dotProduct4.getCosineTheta()) == 0.0d;
 
-            if (hasFourOrthogonalAngles) {
-                System.out.printf("All the angles are orthogonal - might be a square%n");
-            } else {
-                System.out.printf("Not all the angles are orthogonal - cannot be a square%n");
-            }
-
             if (hasEqualDistances && hasFourOrthogonalAngles) {
                 count++;
             }
@@ -139,16 +120,16 @@ public class Polygon {
     }
 
     public List<Point> getPoints(int [][] points, int [] pointIndexSet) {
-            System.out.printf("collect point objects by indices%n");
+
             List<Point> result = new ArrayList<>();
+
             for (int j = 0; j < pointIndexSet.length; j++) {
                 int pointIndex = pointIndexSet[j];
                 int [] point = points[pointIndex];
-                System.out.printf("Point pair (%d, %d)%n", point[0], point[1]);
                 Point pointObject = new Point(point[0], point[1]);
-                System.out.printf("Instance of %s%n", pointObject.toString());
                 result.add(pointObject);
             }
+
             return result;
     }
 
