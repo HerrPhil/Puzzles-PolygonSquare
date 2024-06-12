@@ -55,7 +55,6 @@ public class Permutate {
             for (int j = i + 1; j <= n - 3; j++) {
                 for (int k = j + 1; k <= n - 2; k++) {
                     for (int l = k + 1; l <= n - 1; l++) {
-                        System.out.printf("candidate tuple {%d, %d, %d, %d}%n", i, j, k, l);
                         int [] tuple = new int [] {i, j, k, l};
                         tuples.add(tuple);
                     }
