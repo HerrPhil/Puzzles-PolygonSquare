@@ -38,12 +38,6 @@ public class PolygonDotProduct {
     }
 
     public double getCosineTheta() {
-        System.out.printf("in method getCosineTheta()%n");
-        System.out.printf("p1 = %s%n", p1.toString());
-        System.out.printf("p2 = %s%n", p2.toString());
-        System.out.printf("p3 = %s%n", p3.toString());
-        System.out.printf("d1 = %.3f%n", d1);
-        System.out.printf("d2 = %.3f%n", d2);
 
         // The dot product can be calculated by
         // multiplying same coordinates of the vector's points,
@@ -56,14 +50,9 @@ public class PolygonDotProduct {
         int x3 = p3.getx() - p2.getx();
         int y3 = p3.gety() - p2.gety();
 
-        System.out.printf("coordinates of vector a after projecting p1 x = %d, y = %d%n", x1, y1);
-        System.out.printf("coordinates of vector a after projecting p3 x = %d, y = %d%n", x3, y3);
         double dotProduct = 1.0d * x1 * x3 + 1.0d * y1 * y3;
-        System.out.printf("dot product = %.3f%n", dotProduct);
 
-        System.out.printf("distances d1 = %.3f d2= %.3f%n", d1, d2);
         double productOfMagnitudes = 1.0d * Math.abs(d1) * Math.abs(d2);
-        System.out.printf("product of magnitudes = %.3f%n", productOfMagnitudes);
 
         double result = dotProduct / productOfMagnitudes;
 
