@@ -48,9 +48,9 @@ public class Permutate {
     }
 
     public int[][] solution() {
-        System.out.printf("Given n = %d return a solution%n", n);
 
         List<int[]> tuples = new ArrayList<>();
+
         for (int i  = 0; i <= n - 4; i++) {
             for (int j = i + 1; j <= n - 3; j++) {
                 for (int k = j + 1; k <= n - 2; k++) {
@@ -63,14 +63,11 @@ public class Permutate {
             }
         }
 
-        System.out.printf("number of tuples is %d%n", tuples.size());
-
         int [][] results = new int[tuples.size()][];
+
         for (int index = 0; index < tuples.size(); index++) {
             results[index] = tuples.get(index);
         }
-
-        System.out.printf("number of results is %d%n", results.length);
 
         return results;
     } 
