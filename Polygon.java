@@ -12,11 +12,37 @@ public class Polygon {
 
         Polygon polygon = new Polygon();
 
+/*
         // counter-clockwise example
         int [][] points =new int [][] {
             {1,1}, {2,1},
             {2,2}, {1,2}
         };
+*/
+
+/*
+        // expect 6 squares
+        int [][] points =new int [][] {
+            {1,1}, {2,1}, {3,1},
+            {1,2}, {2,2}, {3,2},
+            {1,3}, {2,3}, {3,3}
+        };
+*/
+
+
+
+        // expect 21 squares
+        int [][] points =new int [][] {
+                          {3,1}, {4,1},
+                          {3,2}, {4,2},
+            {1,3}, {2,3}, {3,3}, {4,3}, {5,3}, {6,3},
+            {1,4}, {2,4}, {3,4}, {4,4}, {5,4}, {6,4},
+                          {3,5}, {4,5},
+                          {3,6}, {4,6}
+        };
+
+
+
 
         int result = polygon.findSquarePolygons(points);
 
@@ -102,6 +128,10 @@ public class Polygon {
                 System.out.printf("All the angles are orthogonal - might be a square%n");
             } else {
                 System.out.printf("Not all the angles are orthogonal - cannot be a square%n");
+            }
+
+            if (hasEqualDistances && hasFourOrthogonalAngles) {
+                count++;
             }
         }
 
